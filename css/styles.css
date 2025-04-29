@@ -1,0 +1,81 @@
+*/
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f4f4f4;
+}
+
+.container {
+    text-align: center;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 600px;
+}
+
+.auto-section, .model-section {
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.auto-header, .model-header {
+    background: #007BFF;
+    color: #fff;
+    padding: 10px;
+    cursor: pointer;
+    margin: 0;
+}
+
+.auto-header:hover, .model-header:hover {
+    background: #0056b3;
+}
+
+.auto-content, .model-content {
+    padding: 10px;
+    display: none;
+    background: #f9f9f9;
+}
+
+.item {
+    margin: 10px 0;
+}
+
+.item img {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+}
+.year-section {
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.year-header {
+    background: #28a745;
+    color: #fff;
+    padding: 8px;
+    cursor: pointer;
+    margin: 0;
+}
+
+.year-header:hover {
+    background: #218838;
+}
+
+.year-content {
+    padding: 10px;
+    display: none;
+    background: #e9ecef;
+}
