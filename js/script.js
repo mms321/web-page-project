@@ -2,7 +2,9 @@ fetch('js/image_sources.json')
     .then(response => response.json())
     .then(jsonData => {
         const outputField = document.getElementById('outputField');
-        outputField.innerHTML = ''; // Очищення перед виведенням
+        const galleryField = document.getElementById('galleryField');
+        outputField.innerHTML = ''; // Очищення списку
+        galleryField.innerHTML = ''; // Очищення галереї
 
         const groupedData = {};
 
@@ -92,6 +94,16 @@ fetch('js/image_sources.json')
             autoSection.appendChild(autoHeader);
             autoSection.appendChild(autoContent);
             outputField.appendChild(autoSection);
+        });
+
+        // Додавання зображень до галереї
+        Object.keys(jsonData).forEach(key => {
+            const img = document.createElement('img');
+            img.src = jsonData[key];
+            img.alt = key;
+            img.style.maxWidth = '200px';
+            img.style.margin = '10px';
+            galleryField.appendChild(img);
         });
     })
     .catch(error => console.error('Error loading JSON:', error));

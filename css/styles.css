@@ -57,6 +57,7 @@ body {
     gap: 10px;
     justify-content: center;
     align-items: flex-start;
+    border-left: 2px solid #ddd;
 }
 
 .item img {
