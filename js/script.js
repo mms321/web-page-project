@@ -1,4 +1,4 @@
-fetch('js/sample.json')
+fetch('js/image_sources.json')
     .then(response => response.json())
     .then(jsonData => {
         const outputField = document.getElementById('outputField');
