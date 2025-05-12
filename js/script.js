@@ -3,6 +3,40 @@ fetch('js/image_sources.json')
     .then(jsonData => {
         const outputField = document.getElementById('outputField');
         const galleryField = document.getElementById('galleryField');
+        const modal = document.getElementById('modal');
+        const modalImage = document.getElementById('modalImage');
+        const closeModal = document.getElementById('closeModal');
+        const prevImage = document.getElementById('prevImage');
+        const nextImage = document.getElementById('nextImage');
+
+        let currentImageIndex = 0;
+        let currentImageList = [];
+
+        // Закриття модального вікна
+        closeModal.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        // Перегортання зображень
+        prevImage.addEventListener('click', () => {
+            if (currentImageList.length > 0) {
+                currentImageIndex = (currentImageIndex - 1 + currentImageList.length) % currentImageList.length;
+                modalImage.src = currentImageList[currentImageIndex];
+            }
+        });
+
+        nextImage.addEventListener('click', () => {
+            if (currentImageList.length > 0) {
+                currentImageIndex = (currentImageIndex + 1) % currentImageList.length;
+                modalImage.src = currentImageList[currentImageIndex];
+            }
+        });
 
         // Очищення полів
         outputField.innerHTML = '<h2>Car List</h2>';
@@ -45,14 +79,31 @@ fetch('js/image_sources.json')
                     yearButton.addEventListener('click', () => {
                         // Оновлення галереї
                         galleryField.innerHTML = `<h2>${brand} ${model} ${year} Gallery</h2>`;
-                        groupedData[brand][model][year] = groupedData[brand][model][year].filter(imageUrl => {
+                        currentImageList = [];
+                        currentImageIndex = 0;
+
+                        groupedData[brand][model][year].forEach((imageUrl, index) => {
                             const img = new Image();
                             img.src = imageUrl;
-                            return img.width !== 1 || img.height !== 1;
+
+                            // Перевірка, чи зображення завантажується
+                            img.onload = () => {
+                                const galleryImg = document.createElement('img');
+                                galleryImg.src = imageUrl;
+                                galleryImg.alt = `${brand} ${model} ${year}`;
+                                galleryImg.addEventListener('click', () => {
+                                    modal.style.display = 'flex';
+                                    modalImage.src = imageUrl;
+                                    currentImageIndex = currentImageList.length;
+                                });
+                                galleryField.appendChild(galleryImg);
+                                currentImageList.push(imageUrl);
+                            };
+
+                            img.onerror = () => {
+                                console.warn(`Image not loaded: ${imageUrl}`);
+                            };
                         });
-                        galleryField.innerHTML += groupedData[brand][model][year]
-                            .map(imageUrl => `<img src="${imageUrl}" alt="${brand} ${model} ${year}" style="max-width: 200px; margin: 10px;">`)
-                            .join('');
                     });
                     yearList.appendChild(yearButton);
                 }

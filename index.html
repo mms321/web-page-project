@@ -3,26 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Car Showcase</title>
+    <title>Car Gallery</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
     <header class="header">
-        <h1>Car Showcase</h1>
+        Car Gallery Viewer
     </header>
-    <main class="main-container">
+    <div class="main-container">
         <aside class="sidebar" id="outputField">
-            <h2>Car List</h2>
-            <p>Select a car to view details.</p>
+            <!-- Список брендів, моделей і років буде додано динамічно -->
         </aside>
         <section class="gallery" id="galleryField">
             <h2>Gallery</h2>
-            <p>Images will appear here.</p>
+            <!-- Галерея зображень буде додана динамічно -->
         </section>
-    </main>
-    <footer class="footer">
-        <p>&copy; 2025 Car Showcase. All rights reserved.</p>
+    </div>
+    <footer>
+        &copy; 2025 Car Gallery Viewer. All rights reserved.
     </footer>
-    <script src="js/script.js" defer></script>
+
+    <!-- Модальне вікно -->
+    <div id="modal" class="modal">
+        <span id="closeModal" class="close">&times;</span>
+        <a class="prev" id="prevImage">&#10094;</a>
+        <img id="modalImage" class="modal-content" alt="Full Image">
+        <a class="next" id="nextImage">&#10095;</a>
+    </div>
+
+    <script src="js/script.js"></script>
 </body>
 </html>
