@@ -157,3 +157,99 @@ nextImage.addEventListener('click', () => {
         modalImage.src = currentImageList[currentImageIndex];
     }
 });
+document.addEventListener('DOMContentLoaded', () => {
+    const likedImages = []; // Масив для збереження лайкнутих зображень
+    const likedSection = document.createElement('div');
+    likedSection.id = 'likedImages';
+    likedSection.style.display = 'none'; // Спочатку приховуємо розділ лайкнутих зображень
+    likedSection.innerHTML = '<h2>Liked Images</h2>';
+    document.body.prepend(likedSection); // Додаємо розділ у верхню частину сторінки
+
+    // Додаємо кнопку для відкриття/закриття лайкнутих зображень
+    const toggleLikedButton = document.createElement('button');
+    toggleLikedButton.textContent = 'Show Liked Images';
+    toggleLikedButton.style.margin = '10px';
+    toggleLikedButton.style.padding = '10px';
+    toggleLikedButton.style.backgroundColor = '#007bff';
+    toggleLikedButton.style.color = '#fff';
+    toggleLikedButton.style.border = 'none';
+    toggleLikedButton.style.borderRadius = '5px';
+    toggleLikedButton.style.cursor = 'pointer';
+    document.getElementById('outputField').prepend(toggleLikedButton);
+
+    toggleLikedButton.addEventListener('click', () => {
+        if (likedSection.style.display === 'none') {
+            likedSection.style.display = 'block';
+            toggleLikedButton.textContent = 'Hide Liked Images';
+        } else {
+            likedSection.style.display = 'none';
+            toggleLikedButton.textContent = 'Show Liked Images';
+        }
+    });
+
+    // Функція для оновлення розділу лайкнутих зображень
+    function updateLikedImages() {
+        likedSection.innerHTML = '<h2>Liked Images</h2>';
+        likedImages.forEach((imageUrl) => {
+            const likedImg = document.createElement('img');
+            likedImg.src = imageUrl;
+            likedImg.alt = 'Liked Image';
+            likedImg.style.width = '100px';
+            likedImg.style.height = '70px';
+            likedImg.style.objectFit = 'cover';
+            likedImg.style.margin = '10px';
+            likedImg.style.border = '2px solid #ddd';
+            likedImg.style.borderRadius = '5px';
+            likedSection.appendChild(likedImg);
+        });
+    }
+
+    // Додаємо функціонал для кнопки "Like" під кожним зображенням
+    const galleryField = document.getElementById('galleryField');
+    galleryField.addEventListener('click', (event) => {
+        if (event.target.tagName === 'BUTTON' && event.target.classList.contains('like-button')) {
+            const imageUrl = event.target.previousElementSibling.src;
+
+            // Додаємо зображення до "Liked Images", якщо його ще немає
+            if (!likedImages.includes(imageUrl)) {
+                likedImages.push(imageUrl);
+                updateLikedImages();
+            }
+        }
+    });
+
+    // Функція для додавання зображення з кнопкою "Like" у галерею
+function addImageToGallery(imageUrl) {
+    const container = document.createElement('div');
+    container.style.position = 'relative';
+    container.style.marginBottom = '20px';
+
+    const galleryImg = document.createElement('img');
+    galleryImg.src = imageUrl;
+    galleryImg.alt = 'Gallery Image';
+    galleryImg.style.display = 'block';
+    galleryImg.style.marginBottom = '10px';
+    galleryImg.style.width = '200px';
+    galleryImg.style.height = '150px';
+    galleryImg.style.objectFit = 'cover';
+
+    const likeButton = document.createElement('button');
+    likeButton.textContent = 'Like';
+    likeButton.classList.add('like-button');
+    likeButton.style.padding = '5px 10px';
+    likeButton.style.backgroundColor = '#28a745';
+    likeButton.style.color = '#fff';
+    likeButton.style.border = 'none';
+    likeButton.style.borderRadius = '5px';
+    likeButton.style.cursor = 'pointer';
+
+    container.appendChild(galleryImg);
+    container.appendChild(likeButton);
+    document.getElementById('galleryField').appendChild(container);
+}
+
+    // Приклад додавання зображень у галерею
+    addImageToGallery('https://via.placeholder.com/200x150?text=Image+1');
+    addImageToGallery('https://via.placeholder.com/200x150?text=Image+2');
+    addImageToGallery('https://via.placeholder.com/200x150?text=Image+3');
+});
